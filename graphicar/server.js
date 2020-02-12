@@ -34,10 +34,9 @@ app.get('/userslastname/:userlastname/infos', (req, res) => {
         return res.status(500).send(err);
       });
   });
-  
+ 
+
   app.post('/users', (req, res) => {
-    console.log(req.body);
-    
     if (!req.body || !req.body.firstname || typeof req.body.firstname !== 'string' || req.body.firstname.length < 1) {
       return res.status(400).send('Parameter "firstname" is required, should be a string with length > 0')
     }
@@ -47,13 +46,15 @@ app.get('/userslastname/:userlastname/infos', (req, res) => {
   
     db.addPeople(req.body.firstname, req.body.lastname)
       .then((response) => {
-        return res.status(200).json({ id: response.insertedId });
+        console.log("first name :"+req.body.firstname);
+        console.log("last name :"+req.body.lastname);
+        
+        return res.status(200).json({ firstname:req.body.firstname, lastname:req.body.lastname});
       })
       .catch((err) => {
         return res.status(500).send(err);
       })
   });
-  
   app.listen(portNumber, () => {
     console.log('Express application listening on port', portNumber);
   });
@@ -62,7 +63,3 @@ app.get('/userslastname/:userlastname/infos', (req, res) => {
     res.sendFile(__dirname + "/index.html");
 
   });
-app.post((req,res)=>{
-
-})
-  
