@@ -7,6 +7,9 @@ const colName = 'people';
 
 const client = new MongoClient(mongoUrl);
 
+
+
+
 client.connect().catch((err) => {
   console.log('Error: MongoDB connection failed');
   process.exit(1);
@@ -15,7 +18,8 @@ client.connect().catch((err) => {
 module.exports = {
   getPeoplelastname,
   getPeoplefirstname,
-  addPeople
+  addPeople,
+  teste
 };
 
 function getPeoplelastname(lastname) {
@@ -27,15 +31,26 @@ function getPeoplelastname(lastname) {
 function getPeoplefirstname(firstname) {
     const db = client.db(dbName);
     const collection = db.collection(colName);
-  
+
     return collection.find({firstname: firstname}).toArray();
-  }
+}
 
 function addPeople(firstname, lastname) {
- 
   const db = client.db(dbName);
   const collection = db.collection(colName);
 
   return collection.insertOne({firstname: firstname, lastname: lastname});
-
 }
+
+
+function teste (){
+  const db = client.db(dbName);
+  const collection = db.collection(colName);
+  collection.find().toArray(function (err, result) {
+    
+        console.log('Find successful', result);
+  }
+  
+)}
+
+  

@@ -43,6 +43,7 @@ app.get('/userslastname/:userlastname/infos', (req, res) => {
     if (!req.body || !req.body.lastname || typeof req.body.lastname !== 'string' || req.body.lastname.length < 1) {
       return res.status(400).send('Parameter "lastname" is required, should be a string with length > 0')
     }
+    
   
     db.addPeople(req.body.firstname, req.body.lastname)
       .then((response) => {
@@ -55,11 +56,17 @@ app.get('/userslastname/:userlastname/infos', (req, res) => {
         return res.status(500).send(err);
       })
   });
+
+  
+
+
+
   app.listen(portNumber, () => {
     console.log('Express application listening on port', portNumber);
   });
   
   app.use("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
+    db.teste();
 
   });
