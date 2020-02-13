@@ -46,11 +46,13 @@ function addPeople(firstname, lastname) {
 function teste (){
   const db = client.db(dbName);
   const collection = db.collection(colName);
-  collection.find().toArray(function (err, result) {
-    
+  collection.find().toArray(function (err, result){
+        
         console.log('Find successful', result);
-  }
+        return collection;
+ 
+  })
   
-)}
+}
 
   
