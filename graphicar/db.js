@@ -4,8 +4,8 @@ const MongoClient = mongodb.MongoClient;
 const mongoUrl = 'mongodb://localhost:27017/';
 const dbName = 'oha';
 const colName = 'people';
-
-const client = new MongoClient(mongoUrl);
+//{useUnifiedTopology: true} =DeprecationWarning
+const client = new MongoClient(mongoUrl,{useUnifiedTopology: true});
 
 
 
@@ -46,13 +46,10 @@ function addPeople(firstname, lastname) {
 function teste (){
   const db = client.db(dbName);
   const collection = db.collection(colName);
-  collection.find().toArray(function (err, result){
-        
-        console.log('Find successful', result);
-        return collection;
- 
-  })
+  return collection.find().toArray();
+
   
+ 
 }
 
   

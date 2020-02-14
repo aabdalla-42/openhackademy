@@ -4,8 +4,9 @@ const db = require('./db');
 const jsonMiddleware = express.json();
 const portNumber = 4444;
 const app =express()
+//extended: provide extended option server.js:8:17
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.urlencoded());
 app.get('/userslastname/:userlastname/infos', (req, res) => {
     console.log('Fetching information for', req.params.userlastname);
     db.getPeoplelastname(req.params.userlastname)
@@ -64,12 +65,25 @@ app.get('/userslastname/:userlastname/infos', (req, res) => {
   app.listen(portNumber, () => {
     console.log('Express application listening on port', portNumber);
   });
- 
-  
-  app.use("/", (req, res) => {  
-   
+
+  app.get("/", (req, res) => {  
+
+    
+    
     res.sendFile(__dirname + "/index.html");
+
   });
-app.get ("/view-feedbacks", (req,res)=>{
-   db.teste();
+
+
+
+  app.get('/:view-feedbacks', (req,res)=>{
+    db.teste()
+    .then((response)=>{
+      return res.status(200).send(response)
+    })
+    .catch((err) => {
+      return res.status(500).send(err);
+    })
+
+  
 })
